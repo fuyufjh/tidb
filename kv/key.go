@@ -13,7 +13,10 @@
 
 package kv
 
-import "bytes"
+import (
+	"bytes"
+	"github.com/apple/foundationdb/bindings/go/src/fdb"
+)
 
 // Key represents high-level Key type.
 type Key []byte
@@ -68,6 +71,10 @@ func (k Key) HasPrefix(prefix Key) bool {
 // Clone returns a copy of the Key.
 func (k Key) Clone() Key {
 	return append([]byte(nil), k...)
+}
+
+func (k Key) FDBKey() fdb.Key {
+	return fdb.Key(k)
 }
 
 // EncodedKey represents encoded key in low-level storage engine.
